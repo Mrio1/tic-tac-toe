@@ -1,0 +1,25 @@
+.control-panel {
+    padding: 1rem;
+    background: var(--bg-light-black);
+    display: flex;
+    justify-content: space-around;
+}
+
+.game-mode {
+    display: flex;
+}
+
+.game-mode__button {
+    display: block;
+    margin: 0 0.5rem;
+    padding: 1rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+    border-radius: 1.5rem;
+    background: rgba(86, 124, 25, 0.664);
+}
+
+.game-mode__button_active {
+    display: block;
+    background: rgba(153, 248, 0, 0.959);
+}

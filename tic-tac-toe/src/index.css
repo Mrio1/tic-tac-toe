@@ -1,0 +1,56 @@
+:root {
+  --text-white: #eee5e5e8;
+  --bg-light-black: #00000062;
+  --bg-dark-black: #000000ef;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background: url('./image/game-bg.jpg') no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.game {
+  padding-top: 0;
+}
+
+.game__main {
+  padding: 2rem;
+  display: flex;
+  background-size: cover;
+}
+
+.game__info {
+  min-width: 15rem;
+  width: 20vw;
+  text-align: center;
+}
+
+.game__info__list {
+  
+}
+
+.game__info__item {
+}
+
+.game__info__button {
+  display: block;
+  width: 100%;
+}
+
+.game__play-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 auto;
+}
