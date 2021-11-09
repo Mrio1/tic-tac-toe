@@ -1,0 +1,30 @@
+.game {
+    padding-top: 0;
+  }
+  
+  .game__main {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  .game__play-field {
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 0 auto;
+  }
+  
+  @media (min-width: 47em) {
+    .game__info-bar {
+      margin-top: 5rem;
+    }
+    .game__main {
+      flex-direction: row;
+    }
+    .game__side-bar {
+      width: 15vw;
+      max-width: 12rem;
+    }
+  }

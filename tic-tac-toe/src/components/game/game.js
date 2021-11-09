@@ -2,14 +2,17 @@ import React, {Component} from 'react';
 import Board from '../board/board';
 import ControlPannel from '../control-pannel/control-pannel';
 import GameInfo from '../info-bar/info-bar';
+import InfoBlock from '../info-block/info-block';
 import checkTurn from '../../scripts/calculate-next-move';
-import InfoBlock from '../info-block/info-block'; 
+import calculateWinner from '../../scripts/calculate-winner';
+import {getGameData, updateGameData} from '../../scripts/storage-controller';
+import './game.css';
 
 class Game extends Component {
     constructor(props) {
 		super(props);
     this.isBlockGame = false;
-		this.state = {
+		this.state = getGameData() || {
 			history: [
 				{
 					squares: Array(9).fill(null),
@@ -17,9 +20,9 @@ class Game extends Component {
 			],
 			stepNumber: 0,
 			xIsNext: true,
-      firsPlayerIsNext: true,
       activeGameMode: 'human',
 		}
+    console.log(getGameData())
 	}
 
 	handleClick(i) {
@@ -37,7 +40,6 @@ class Game extends Component {
 				}]),
 				stepNumber: history.length,
 				xIsNext: !this.state.xIsNext,
-        firsPlayerIsNext: !this.state.firsPlayerIsNext,
 		});
 	}
 
@@ -66,7 +68,8 @@ class Game extends Component {
   }
 
   render() {
-    const {activeGameMode, firsPlayerIsNext, xIsNext, history, stepNumber} = this.state;
+    updateGameData(JSON.stringify(this.state));
+    const {activeGameMode, xIsNext, history, stepNumber} = this.state;
 		const current = history[stepNumber];
 		const winner = calculateWinner(current.squares);
 		let status;
@@ -75,7 +78,7 @@ class Game extends Component {
 		}
 		else {
 			status = 'Next turn: '+ (xIsNext ? 'X' : 'O');
-      if (activeGameMode ==='robot' && !firsPlayerIsNext) {
+      if (activeGameMode ==='robot' && !xIsNext) {
         this.isBlockGame = true;
         setTimeout(()=>{
           this.isBlockGame = false;
@@ -94,7 +97,6 @@ class Game extends Component {
             onChangeMode = {this.onChangeMode.bind(this)}
             onResetGame = {this.onResetGame.bind(this)}
           />
-        
         <div className="game__main">
           <GameInfo
             outerClassName="game__side-bar"
@@ -117,26 +119,6 @@ class Game extends Component {
       </div>
     );
   }
-}
-
-function calculateWinner(squares) {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
-      }
-    }
-    return null;
 }
 
 export default Game;
