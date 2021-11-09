@@ -1,15 +1,23 @@
 .board {
     position: relative;
     z-index: 10;
-    margin: 0 auto;
+    margin: 2rem auto;
     position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-content: space-evenly;
-    width: 33vw;
-    height: 33vw;
-    background: white;
+    width: 75vw;
+    height: 75vw;
+    background: var(--text-white);
     border-radius: 10px;
-    transform: perspective(400px) rotateY(5deg) rotateX(20deg) translateZ(-40px);
+    transform: perspective(1000px) rotateX(20deg);
 }
+
+
+@media (min-width: 47em) {
+    .board {
+        width: 35vw;
+        height: 35vw;
+    }
+  }

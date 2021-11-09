@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Board from '../board/board';
 import ControlPannel from '../control-pannel/control-pannel';
-import GameInfo from '../game-info/game-info';
+import GameInfo from '../info-bar/info-bar';
 import checkTurn from '../../scripts/calculate-next-move';
 import InfoBlock from '../info-block/info-block'; 
 
@@ -89,6 +89,7 @@ class Game extends Component {
     return (
       <div className="game">
         <ControlPannel
+            outerClassName="game__control-panel"
             activeGameMode={activeGameMode}
             onChangeMode = {this.onChangeMode.bind(this)}
             onResetGame = {this.onResetGame.bind(this)}
@@ -96,15 +97,17 @@ class Game extends Component {
         
         <div className="game__main">
           <GameInfo
-            className="game__side"
+            outerClassName="game__side-bar"
             moves={history}
             onJumpTo={this.jumpTo.bind(this)}
           />
           <div className="game__play-field">
             <InfoBlock
+              outerClassName="game__info"
               info={status}
             />
             <Board
+              outerClassName="game__board"
               squares={current.squares}
               onClick={(i)=> this.handleClick(i)} 
             />

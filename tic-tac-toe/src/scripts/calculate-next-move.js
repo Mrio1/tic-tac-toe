@@ -1,9 +1,9 @@
 function checkTurn(arr, own, opossit) {
     const ownRate = [
-        checkDiagonal(arr, own, opossit,false, 10),
-        checkDiagonal(arr, own, opossit,true, 10),
-        checkLine(arr, own, opossit,10, true),
-        checkLine(arr, own, opossit,10, false)
+        checkDiagonal(arr, own, opossit, false, 10),
+        checkDiagonal(arr, own, opossit, true, 10),
+        checkLine(arr, own, opossit, 10, true),
+        checkLine(arr, own, opossit, 10, false)
     ];
     const opossitRate = [
         checkDiagonal(arr, opossit, own, false, 1),

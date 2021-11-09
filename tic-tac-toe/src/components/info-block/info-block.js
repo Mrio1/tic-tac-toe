@@ -1,9 +1,11 @@
 import React from 'react';
 import './info-block.css';
 
-const InfoBlock = ({info}) => {
+const InfoBlock = ({info, outerClassName}) => {
+    const innerClassName = 'info-block';
+    const className = `${outerClassName} ${innerClassName}`
     return (
-        <div className="info-block">
+        <div className={className}>
             {info}
         </div>
     )

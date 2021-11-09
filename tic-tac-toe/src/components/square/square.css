@@ -5,17 +5,20 @@
     flex-basis: 32%;
     height: 32%;
     background: var(--bg-dark-black);
-    font-size: 10rem;
+    font-size: 5rem;
     color: #fff;
     text-shadow:
-        0 0 2px #fff,
-        0px 1px 2px #fff,
-        0px 3px 1px #fff,
-        0px 9px rgba(255, 255, 255, 0.425),
-        0 0 10px #fff,
-        0 0 21px #fff,
-        0 0 42px #0fa,
-        0 0 82px #0fa,
-        0 0 92px #0fa,
-        0 0 102px #0fa;
+        0 0 0.5rem var(--shadow-light-blue-green),
+        0 0 1rem var(--shadow-light-blue-green),
+        0 0 2rem var(--shadow-light-blue-green),
+        0 0 4rem var(--shadow-light-blue-green),
+        0 0 8rem var(--shadow-light-blue-green),
+        0 0 9rem var(--shadow-light-blue-green),
+        0 0 10rem var(--shadow-light-blue-green);
 }
+
+@media (min-width: 47em) {
+    .square {
+        font-size: 10rem;
+    }
+  }

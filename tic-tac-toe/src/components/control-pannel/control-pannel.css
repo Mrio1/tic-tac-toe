@@ -3,23 +3,42 @@
     background: var(--bg-light-black);
     display: flex;
     justify-content: space-around;
+    font-size: 1.5rem;
 }
 
-.game-mode {
+.reset-button {
+    padding: 1rem;
+    font-size: inherit;
+    text-transform: uppercase;
+    border-radius: 1rem;
+    background-color: var(--light-coral);
+}
+
+.reset-button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.mode-panel {
     display: flex;
 }
 
-.game-mode__button {
+.mode-panel__button {
     display: block;
     margin: 0 0.5rem;
     padding: 1rem;
-    font-size: 2rem;
+    font-size: inherit;
     text-transform: uppercase;
     border-radius: 1.5rem;
-    background: rgba(86, 124, 25, 0.664);
+    background: var(--light-yellow);
 }
 
-.game-mode__button_active {
+.mode-panel__button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.mode-panel__button_active {
     display: block;
-    background: rgba(153, 248, 0, 0.959);
+    background: var(--light-orange);
 }
