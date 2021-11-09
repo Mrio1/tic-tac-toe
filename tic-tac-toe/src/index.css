@@ -29,6 +29,12 @@ html {
 
 body {
   background: url('./image/game-bg.jpg') no-repeat;
+  background-position: top center;
   background-attachment: fixed;
   background-size: cover;
+}
+
+#root {
+  margin: 0 auto;
+  max-width: 140rem;
 }

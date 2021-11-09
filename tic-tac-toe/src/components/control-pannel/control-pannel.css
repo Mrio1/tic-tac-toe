@@ -30,7 +30,8 @@
     font-size: inherit;
     text-transform: uppercase;
     border-radius: 1.5rem;
-    background: var(--light-yellow);
+    background-color: var(--light-yellow);
+    transition: transform 0.4s, background-color 0.4s;
 }
 
 .mode-panel__button:hover {
@@ -40,5 +41,6 @@
 
 .mode-panel__button_active {
     display: block;
-    background: var(--light-orange);
+    background-color: var(--light-orange);
+    transform: scale(1.1);
 }
