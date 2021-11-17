@@ -1,4 +1,4 @@
-.square {
+.Square {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +6,7 @@
     height: 32%;
     background: var(--bg-dark-black);
     font-size: 5rem;
-    color: #fff;
+    color: var(--text-white);
     text-shadow:
         0 0 0.5rem var(--shadow-light-blue-green),
         0 0 1rem var(--shadow-light-blue-green),
@@ -18,7 +18,7 @@
 }
 
 @media (min-width: 47em) {
-    .square {
+    .Square {
         font-size: 10rem;
     }
   }

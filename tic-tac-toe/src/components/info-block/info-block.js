@@ -1,14 +1,12 @@
 import React from 'react';
-import './info-block.css';
+import classes from './info-block.module.css';
 
-const InfoBlock = ({info, outerClassName}) => {
-    const innerClassName = 'info-block';
-    const className = `${outerClassName} ${innerClassName}`
-    return (
-        <div className={className}>
-            {info}
-        </div>
-    )
+const InfoBlock = ({info}) => {
+  return (
+    <div className={classes.Block}>
+      {info}
+    </div>
+  )
 }
 
 export default InfoBlock;

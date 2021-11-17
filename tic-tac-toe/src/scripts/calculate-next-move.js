@@ -1,41 +1,41 @@
-function checkTurn(arr, own, opossit) {
-    const ownRate = [
-        checkDiagonal(arr, own, opossit, false, 10),
-        checkDiagonal(arr, own, opossit, true, 10),
-        checkLine(arr, own, opossit, 10, true),
-        checkLine(arr, own, opossit, 10, false)
+function checkTurn(arr, mineValue, rivalValue) {
+    const mineRate = [
+        checkDiagonal(arr, mineValue, rivalValue, false, 10),
+        checkDiagonal(arr, mineValue, rivalValue, true, 10),
+        checkLine(arr, mineValue, rivalValue, 10, true),
+        checkLine(arr, mineValue, rivalValue, 10, false)
     ];
-    const opossitRate = [
-        checkDiagonal(arr, opossit, own, false, 1),
-        checkDiagonal(arr, opossit, own, true, 1),
-        checkLine(arr, opossit, own, 1, true),
-        checkLine(arr, opossit, own, 1, false)
+    const rivalRate = [
+        checkDiagonal(arr, rivalValue, mineValue, false, 1),
+        checkDiagonal(arr, rivalValue, mineValue, true, 1),
+        checkLine(arr, rivalValue, mineValue, 1, true),
+        checkLine(arr, rivalValue, mineValue, 1, false)
     ]
-    const nextTurn = [...ownRate, ...opossitRate].sort((a, b) => {
+    const nextTurn = [...mineRate, ...rivalRate].sort((a, b) => {
         return b.rate - a.rate;
     })[0].positions[0];
     return nextTurn;
 }
 
-function checkDiagonal(arr, own, opossit, isLineGrow = false, rateMult = 1, ) {
+function checkDiagonal(arr, mineValue, rival, isLineGrow = false, rateMult = 1, ) {
   const squareSize = 3;
   let rate = 0;
-  let recomPosition = [];
+  let nextTurnPosition = [];
   for (let i = 0; i < squareSize; i++) {
     const position = getDiagonalPosition(i, squareSize, isLineGrow);
     const value = arr[position];
-    if (value === own) {
+    if (value === mineValue) {
       rate = rate > 0 ? 100 * 10 : 10;
     } else if (value) {
       rate = 0;
       break;
     } else {
-      recomPosition = [...recomPosition, position];
+      nextTurnPosition = [...nextTurnPosition, position];
     }
   }
   return {
     rate: rate || 0,
-    positions: recomPosition
+    positions: nextTurnPosition
   };
 }
 
@@ -47,9 +47,9 @@ function getDiagonalPosition(i, squareSize, isGrow = true) {
   }
 }
 
-function checkLine(arr, own, opossit, rateMult = 1, isCol = true) {
+function checkLine(arr, mineValue, rival, rateMult = 1, isCol = true) {
   let myRes = 0;
-  let recomPosition = null;
+  let nextTurnPosition = null;
   const coef = 3;
   let iCoef = 1;
   let jCoef = 1;
@@ -64,13 +64,13 @@ function checkLine(arr, own, opossit, rateMult = 1, isCol = true) {
     for (let j = 0; j < 3; j++) {
       const itemPosition = i * iCoef + j * jCoef;
       const itemValue = arr[itemPosition];
-      if (itemValue === own) {
+      if (itemValue === mineValue) {
         if (my !== 0) {
           my = 100 * rateMult;
         } else {
           my = 10;
         }
-      } else if (itemValue === opossit) {
+      } else if (itemValue === rival) {
         my = 0;
         break;
       } else {
@@ -79,12 +79,12 @@ function checkLine(arr, own, opossit, rateMult = 1, isCol = true) {
     }
     if (my > myRes) {
       myRes = my;
-      recomPosition = [...localPosition];
+      nextTurnPosition = [...localPosition];
     }
   }
   return {
     rate: myRes,
-    positions: recomPosition
+    positions: nextTurnPosition
   };
 }
 

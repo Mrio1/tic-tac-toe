@@ -1,0 +1,22 @@
+.Board {
+  position: relative;
+  z-index: 10;
+  margin: 2rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+  width: 75vw;
+  height: 75vw;
+  background: var(--text-white);
+  border-radius: 10px;
+  transform: perspective(1000px) rotateX(20deg);
+}
+
+
+@media (min-width: 47em) {
+  .Board {
+    width: 35vw;
+    height: 35vw;
+  }
+}

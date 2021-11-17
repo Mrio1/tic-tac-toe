@@ -1,4 +1,4 @@
-.control-panel {
+.Panel {
     padding: 1rem;
     background: var(--bg-light-black);
     display: flex;
@@ -6,7 +6,7 @@
     font-size: 1.5rem;
 }
 
-.reset-button {
+.ResetButton {
     padding: 1rem;
     font-size: inherit;
     text-transform: uppercase;
@@ -14,16 +14,16 @@
     background-color: var(--light-coral);
 }
 
-.reset-button:hover {
+.ResetButton:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
 
-.mode-panel {
+.Panel {
     display: flex;
 }
 
-.mode-panel__button {
+.Button {
     display: block;
     margin: 0 0.5rem;
     padding: 1rem;
@@ -34,12 +34,12 @@
     transition: transform 0.4s, background-color 0.4s;
 }
 
-.mode-panel__button:hover {
+.Button:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
 
-.mode-panel__button_active {
+.ActiveButton {
     display: block;
     background-color: var(--light-orange);
     transform: scale(1.1);

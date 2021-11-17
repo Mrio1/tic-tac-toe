@@ -1,31 +1,31 @@
-.info-bar {
+.Bar {
     padding: 1rem 0.5rem;
     min-width: 8rem;
     background: var(--bg-light-black);
 }
 
-.info-bar__list {
+.List {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
 }
 
-.info-bar__button {
+.Button {
     padding: 0.4rem;
     min-width: 3rem;
     font-size: 1.5rem;
     background-color: var(--light-orange);
 }
 
-.info-bar__button:hover {
+.Button:hover {
     cursor: pointer;
     transform: scale(1.1);
 }
 
 
 @media (min-width: 22em) {
-    .info-bar__button {
+    .Button {
         min-width: 3rem;
         font-size: 1.8rem;
         background-color: var(--light-orange);
@@ -33,14 +33,14 @@
 }
 
 @media (min-width: 47em) {
-    .info-bar {
+    .Bar {
         margin-top: 6rem;
     }
-    .info-bar__list {
+    .List {
         flex-direction: column;
         align-content: stretch;
     }
-    .info-bar__button {
+    .Button {
         width: 100%;
     }
   }

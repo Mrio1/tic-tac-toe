@@ -1,68 +1,60 @@
-import React, {Component} from 'react';
-import './control-pannel.css';
+import React from 'react';
+import classes from  './control-pannel.module.css';
 
-const GameModePannel = ({activeGameMode, onChangeMode, outerClassName}) => {
-    const innerClassName = 'mode-panel';
-    const className = `${outerClassName} ${innerClassName}`
-    const buttonsInfo = [
-        {name: 'human', label: 'human'},
-        {name: 'robot', label: 'robot'},
-    ];
 
-    const buttons = buttonsInfo.map(({name, label}) => {
-            let btnClassName = `${innerClassName}__button`;
-            const isActive = (name === activeGameMode);
-            btnClassName += (isActive) ? ` ${btnClassName}_active` : '';
-            return (
-                <button
-                    className={btnClassName}
-                    key={name}
-                    onClick={()=>{
-                        onChangeMode(name)
-                    }}
-                >{label}</button>
-            )     
-        }  
-    )
-    return (
-        <div className={className}>
-            {buttons}
-        </div>
-    )
+const buttonsInfo = [
+  {name: 'human', label: 'human'},
+  {name: 'robot', label: 'robot'},
+];
+
+const GameModePannel = ({activeGameMode, onChangeMode}) => {
+  const buttons = buttonsInfo.map(({name, label}) => {
+      const isActive = (name === activeGameMode);
+      let btnClassName = classes.Button;
+      btnClassName += (isActive) ? ` ${classes.ActiveButton}` : '';
+      return (
+        <button
+          className={btnClassName}
+          key={name}
+          onClick={()=>{
+            onChangeMode(name)
+          }}
+        >{label}</button>
+      )     
+    }  
+  )
+  return (
+    <div className={classes.Panel}>
+        {buttons}
+    </div>
+  )
 }
 
-const GameResetButton = ({onReset, outerClassName}) => {
-    const innerClassName = 'reset-button';
-    const className = `${outerClassName} ${innerClassName}`
-    return (
-        <button 
-            className={className}
-            onClick={()=> {
-                onReset();
-            }}
-        > New game</button>
-    )
+const GameResetButton = ({onReset}) => {
+  return (
+    <button 
+      className={classes.ResetButton}
+      onClick={onReset}
+    > 
+      New game
+    </button>
+  )
 }
 
-class ControlPannel extends Component {
-    render() {
-        const {activeGameMode, onChangeMode, onResetGame, outerClassName} = this.props;
-        const innerClass = 'control-panel';
-        const className = `${outerClassName} ${innerClass}`
-        return (
-            <div className={className}>
-                <GameResetButton
-                    outerClassName={innerClass+'__reset-button'}
-                    onReset = {onResetGame}
-                />
-                <GameModePannel
-                    outerClassName = {innerClass+'__mode-panel'}
-                    activeGameMode = {activeGameMode}
-                    onChangeMode = {onChangeMode}
-                />
-            </div>
-        )
-    }
+function ControlPannel(props) {
+  const {activeGameMode, onChangeMode, onResetGame} = props;
+
+  return (
+    <div className={classes.Panel}>
+      <GameResetButton
+        onReset = {onResetGame}
+      />
+      <GameModePannel
+        activeGameMode = {activeGameMode}
+        onChangeMode = {onChangeMode}
+      />
+    </div>
+  )
 }
 
 export default ControlPannel;
