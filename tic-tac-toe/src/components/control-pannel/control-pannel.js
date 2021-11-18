@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from  './control-pannel.module.css';
 
-
 const buttonsInfo = [
   {name: 'human', label: 'human'},
   {name: 'robot', label: 'robot'},
@@ -9,23 +8,22 @@ const buttonsInfo = [
 
 const GameModePannel = ({activeGameMode, onChangeMode}) => {
   const buttons = buttonsInfo.map(({name, label}) => {
-      const isActive = (name === activeGameMode);
-      let btnClassName = classes.Button;
-      btnClassName += (isActive) ? ` ${classes.ActiveButton}` : '';
-      return (
-        <button
-          className={btnClassName}
-          key={name}
-          onClick={()=>{
-            onChangeMode(name)
-          }}
-        >{label}</button>
-      )     
-    }  
-  )
+    function clickHandler() {
+      onChangeMode(name);
+    }
+
+    return (
+      <button
+        className={classes.Button += ((name === activeGameMode) ? ` ${classes.ActiveButton}` :  '')}
+        key={name}
+        onClick={clickHandler}
+      >{label}</button>
+    )     
+  })
+
   return (
     <div className={classes.Panel}>
-        {buttons}
+      {buttons}
     </div>
   )
 }

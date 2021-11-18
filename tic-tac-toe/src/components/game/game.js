@@ -62,6 +62,7 @@ class Game extends Component {
   }
 
   onChangeMode(mode) {
+    console.log(mode);
     this.onResetGame();
     this.setState({
       activeGameMode: mode,
@@ -123,3 +124,4 @@ class Game extends Component {
 }
 
 export default Game;
+
