@@ -1,55 +1,63 @@
-function checkTurn(arr, mineValue, rivalValue) {
-    const mineRate = [
-        checkDiagonal(arr, mineValue, rivalValue, false, 10),
-        checkDiagonal(arr, mineValue, rivalValue, true, 10),
-        checkLine(arr, mineValue, rivalValue, 10, true),
-        checkLine(arr, mineValue, rivalValue, 10, false)
+const firsPlayerRatingFactor = 10;
+const secondPlayerRatingFactor = 1;
+const twoItemsCombinationCost = 100;
+const oneItemsCombinationCost = 10;
+const angleOffset = 1;
+
+function checkTurn(arr, firstPlayerValue, secondPlayerValue) {
+    const firstPlayerRatштп = [
+        checkDiagonalWinCombination(arr, firstPlayerValue, secondPlayerValue, false, firsPlayerRatingFactor),
+        checkDiagonalWinCombination(arr, firstPlayerValue, secondPlayerValue, true, firsPlayerRatingFactor),
+        checkLineWinCombination(arr, firstPlayerValue, secondPlayerValue, firsPlayerRatingFactor, true),
+        checkLineWinCombination(arr, firstPlayerValue, secondPlayerValue, firsPlayerRatingFactor, false)
     ];
-    const rivalRate = [
-        checkDiagonal(arr, rivalValue, mineValue, false, 1),
-        checkDiagonal(arr, rivalValue, mineValue, true, 1),
-        checkLine(arr, rivalValue, mineValue, 1, true),
-        checkLine(arr, rivalValue, mineValue, 1, false)
+    const secondPlayerRating = [
+        checkDiagonalWinCombination(arr, secondPlayerValue, firstPlayerValue, false, secondPlayerRatingFactor),
+        checkDiagonalWinCombination(arr, secondPlayerValue, firstPlayerValue, true, secondPlayerRatingFactor),
+        checkLineWinCombination(arr, secondPlayerValue, firstPlayerValue, secondPlayerRatingFactor, true),
+        checkLineWinCombination(arr, secondPlayerValue, firstPlayerValue, secondPlayerRatingFactor, false)
     ]
-    const nextTurn = [...mineRate, ...rivalRate].sort((a, b) => {
-        return b.rate - a.rate;
-    })[0].positions[0];
-    return nextTurn;
+    const nextTurnVariantsArray = [...firstPlayerRatштп, ...secondPlayerRating].sort((a, b) => {
+        return b.rating - a.rating;
+    });
+    const maxRatingPositionsArray = nextTurnVariantsArray[0].positions;
+    const firstRecomendedPosition = maxRatingPositionsArray[0];
+    return firstRecomendedPosition;
 }
 
-function checkDiagonal(arr, mineValue, rival, isLineGrow = false, rateMult = 1, ) {
+function checkDiagonalWinCombination(arr, firstPlayerValue, secondPlayerValue, isLineAngleGrow = false, ratingFactor = 1, ) {
   const squareSize = 3;
-  let rate = 0;
-  let nextTurnPosition = [];
+  let rating = 0;
+  let nextTurnPositions = [];
   for (let i = 0; i < squareSize; i++) {
-    const position = getDiagonalPosition(i, squareSize, isLineGrow);
+    const position = getDiagonalPosition(i, squareSize, isLineAngleGrow);
     const value = arr[position];
-    if (value === mineValue) {
-      rate = rate > 0 ? 100 * 10 : 10;
+    if (value === firstPlayerValue) {
+      rating = rating > 0 ? twoItemsCombinationCost * oneItemsCombinationCost : oneItemsCombinationCost;
     } else if (value) {
-      rate = 0;
+      rating = 0;
       break;
     } else {
-      nextTurnPosition = [...nextTurnPosition, position];
+      nextTurnPositions.push(position);
     }
   }
   return {
-    rate: rate || 0,
-    positions: nextTurnPosition
+    rating: rating || 0,
+    positions: nextTurnPositions
   };
 }
 
-function getDiagonalPosition(i, squareSize, isGrow = true) {
-  if (isGrow) {
-    return squareSize * (i + 1) - i - 1;
+function getDiagonalPosition(i, squareSize, isLineAngleGrow = true) {
+  if (isLineAngleGrow) {
+    return squareSize * (i + angleOffset) - i - angleOffset;
   } else {
-    return i * (squareSize + 1);
+    return i * (squareSize + angleOffset);
   }
 }
 
-function checkLine(arr, mineValue, rival, rateMult = 1, isCol = true) {
-  let myRes = 0;
-  let nextTurnPosition = null;
+function checkLineWinCombination(arr, firstPlayerValue, secondPlayerValue, ratingFactor = 1, isCol = true) {
+  let maxResult = 0;
+  let nextTurnPositions = [];
   const coef = 3;
   let iCoef = 1;
   let jCoef = 1;
@@ -60,31 +68,31 @@ function checkLine(arr, mineValue, rival, rateMult = 1, isCol = true) {
   }
   for (let i = 0; i < 3; i++) {
     let localPosition = [];
-    let my = 0;
+    let result = 0;
     for (let j = 0; j < 3; j++) {
       const itemPosition = i * iCoef + j * jCoef;
       const itemValue = arr[itemPosition];
-      if (itemValue === mineValue) {
-        if (my !== 0) {
-          my = 100 * rateMult;
+      if (itemValue === firstPlayerValue) {
+        if (result !== 0) {
+          result = twoItemsCombinationCost * ratingFactor;
         } else {
-          my = 10;
+          result = oneItemsCombinationCost;
         }
-      } else if (itemValue === rival) {
-        my = 0;
+      } else if (itemValue === secondPlayerValue) {
+        result = 0;
         break;
       } else {
         localPosition = [...localPosition, itemPosition];
       }
     }
-    if (my > myRes) {
-      myRes = my;
-      nextTurnPosition = [...localPosition];
+    if (result > maxResult) {
+      maxResult = result;
+      nextTurnPositions = [...localPosition];
     }
   }
   return {
-    rate: myRes,
-    positions: nextTurnPosition
+    rating: maxResult,
+    positions: nextTurnPositions
   };
 }
 

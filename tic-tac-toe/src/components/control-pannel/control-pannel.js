@@ -1,9 +1,10 @@
 import React from 'react';
 import classes from  './control-pannel.module.css';
+import {gameModes} from '../../libraries/library';
 
 const buttonsInfo = [
-  {name: 'human', label: 'human'},
-  {name: 'robot', label: 'robot'},
+  {name: gameModes.vsPlayer, label: 'human'},
+  {name: gameModes.vsBot, label: 'robot'},
 ];
 
 const GameModePannel = ({activeGameMode, onChangeMode}) => {
@@ -14,7 +15,7 @@ const GameModePannel = ({activeGameMode, onChangeMode}) => {
 
     return (
       <button
-        className={classes.Button += ((name === activeGameMode) ? ` ${classes.ActiveButton}` :  '')}
+        className={classes.Button + ((name === activeGameMode) ? ` ${classes.ActiveButton}` :  '')}
         key={name}
         onClick={clickHandler}
       >{label}</button>

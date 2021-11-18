@@ -6,6 +6,7 @@ import InfoBlock from '../info-block/info-block';
 import checkTurn from '../../scripts/calculate-next-move';
 import calculateWinner from '../../scripts/calculate-winner';
 import {getGameData, updateGameData} from '../../scripts/storage-controller';
+import {gameModes} from '../../libraries/library';
 import classes from './game.module.css';
 
 class Game extends Component {
@@ -20,7 +21,7 @@ class Game extends Component {
       ],
       stepNumber: 0,
       xIsNext: true,
-      activeGameMode: 'human',
+      activeGameMode: gameModes.vsPlayer,
     }
   }
 
@@ -37,7 +38,7 @@ class Game extends Component {
     squares[squareIndex] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       history: history.concat([{
-        squares: squares,
+        squares
       }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
@@ -61,11 +62,10 @@ class Game extends Component {
     });
   }
 
-  onChangeMode(mode) {
-    console.log(mode);
+  onChangeMode(activeGameMode) {
     this.onResetGame();
     this.setState({
-      activeGameMode: mode,
+      activeGameMode
     })
   }
 
@@ -87,10 +87,10 @@ class Game extends Component {
     const winner = calculateWinner(current.squares);
     let status;
     if (winner) {
-      status = 'Win ' + winner;
+      status = `Win ${winner}`;
     } else {
-      status = 'Next turn: '+ (xIsNext ? 'X' : 'O');
-      if (activeGameMode ==='robot' && !xIsNext) {
+      status = `Next turn: ${(xIsNext ? 'X' : 'O')}`;
+      if (activeGameMode === gameModes.vsBot && !xIsNext) {
         this.isBlockGame = true;
         this.robotTurn();
       }
@@ -114,7 +114,7 @@ class Game extends Component {
             />
             <Board
               squares={current.squares}
-              onClick={(squareIndex)=> this.handleClick(squareIndex)} 
+              onClick={this.handleClick.bind(this)} 
             />
           </div> 
         </div>
