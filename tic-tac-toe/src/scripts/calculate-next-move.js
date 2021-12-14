@@ -4,96 +4,48 @@ const twoItemsCombinationCost = 100;
 const oneItemsCombinationCost = 10;
 const angleOffset = 1;
 
-function checkTurn(arr, firstPlayerValue, secondPlayerValue) {
-    const firstPlayerRatштп = [
-        checkDiagonalWinCombination(arr, firstPlayerValue, secondPlayerValue, false, firsPlayerRatingFactor),
-        checkDiagonalWinCombination(arr, firstPlayerValue, secondPlayerValue, true, firsPlayerRatingFactor),
-        checkLineWinCombination(arr, firstPlayerValue, secondPlayerValue, firsPlayerRatingFactor, true),
-        checkLineWinCombination(arr, firstPlayerValue, secondPlayerValue, firsPlayerRatingFactor, false)
-    ];
-    const secondPlayerRating = [
-        checkDiagonalWinCombination(arr, secondPlayerValue, firstPlayerValue, false, secondPlayerRatingFactor),
-        checkDiagonalWinCombination(arr, secondPlayerValue, firstPlayerValue, true, secondPlayerRatingFactor),
-        checkLineWinCombination(arr, secondPlayerValue, firstPlayerValue, secondPlayerRatingFactor, true),
-        checkLineWinCombination(arr, secondPlayerValue, firstPlayerValue, secondPlayerRatingFactor, false)
-    ]
-    const nextTurnVariantsArray = [...firstPlayerRatштп, ...secondPlayerRating].sort((a, b) => {
-        return b.rating - a.rating;
-    });
-    const maxRatingPositionsArray = nextTurnVariantsArray[0].positions;
-    const firstRecomendedPosition = maxRatingPositionsArray[0];
-    return firstRecomendedPosition;
-}
+const winCombinations = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
 
-function checkDiagonalWinCombination(arr, firstPlayerValue, secondPlayerValue, isLineAngleGrow = false, ratingFactor = 1, ) {
-  const squareSize = 3;
-  let rating = 0;
-  let nextTurnPositions = [];
-  for (let i = 0; i < squareSize; i++) {
-    const position = getDiagonalPosition(i, squareSize, isLineAngleGrow);
-    const value = arr[position];
-    if (value === firstPlayerValue) {
-      rating = rating > 0 ? twoItemsCombinationCost * oneItemsCombinationCost : oneItemsCombinationCost;
-    } else if (value) {
-      rating = 0;
-      break;
-    } else {
-      nextTurnPositions.push(position);
-    }
-  }
-  return {
-    rating: rating || 0,
-    positions: nextTurnPositions
-  };
-}
+const combinationsCount = winCombinations.length;
 
-function getDiagonalPosition(i, squareSize, isLineAngleGrow = true) {
-  if (isLineAngleGrow) {
-    return squareSize * (i + angleOffset) - i - angleOffset;
-  } else {
-    return i * (squareSize + angleOffset);
-  }
-}
-
-function checkLineWinCombination(arr, firstPlayerValue, secondPlayerValue, ratingFactor = 1, isCol = true) {
-  let maxResult = 0;
-  let nextTurnPositions = [];
-  const coef = 3;
-  let iCoef = 1;
-  let jCoef = 1;
-  if (isCol) {
-    jCoef *= coef;
-  } else {
-    iCoef *= coef;
-  }
-  for (let i = 0; i < 3; i++) {
-    let localPosition = [];
-    let result = 0;
-    for (let j = 0; j < 3; j++) {
-      const itemPosition = i * iCoef + j * jCoef;
-      const itemValue = arr[itemPosition];
-      if (itemValue === firstPlayerValue) {
-        if (result !== 0) {
-          result = twoItemsCombinationCost * ratingFactor;
-        } else {
-          result = oneItemsCombinationCost;
-        }
-      } else if (itemValue === secondPlayerValue) {
-        result = 0;
-        break;
-      } else {
-        localPosition = [...localPosition, itemPosition];
+function getWinPosition(arr, secondValue) {
+  for (let i = 0; i < combinationsCount; i++) {
+    if (!winCombinations[i].some((el) => arr[el] === secondValue)) {
+      const nextTurns =  winCombinations[i].filter(el => {
+  
+        return arr[el] === null;
+      })
+      if (nextTurns.length === 1) {
+        return nextTurns[0];
       }
-    }
-    if (result > maxResult) {
-      maxResult = result;
-      nextTurnPositions = [...localPosition];
-    }
+   }
   }
-  return {
-    rating: maxResult,
-    positions: nextTurnPositions
-  };
+
+ return null
+}
+
+function getRandomPosition(arr) {
+  if (!arr[4]) {
+    return 4;
+  }
+
+  return arr.indexOf(null);
+}
+
+function checkTurn(arr, botValue, playerValue) {
+  const botWinPosition = getWinPosition(arr, playerValue);
+  const playerWinPosition = getWinPosition(arr, botValue);
+
+  return botWinPosition || playerWinPosition || getRandomPosition(arr);
 }
 
 export default checkTurn;

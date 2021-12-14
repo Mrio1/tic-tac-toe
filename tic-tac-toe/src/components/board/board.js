@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Square from '../square/square';
 import classes from  './board.module.css';
 
