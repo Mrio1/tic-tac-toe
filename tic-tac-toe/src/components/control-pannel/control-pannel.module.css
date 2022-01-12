@@ -1,0 +1,46 @@
+.Panel {
+    padding: 1rem;
+    background: var(--bg-light-black);
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5rem;
+}
+
+.ResetButton {
+    padding: 1rem;
+    font-size: inherit;
+    text-transform: uppercase;
+    border-radius: 1rem;
+    background-color: var(--light-coral);
+}
+
+.ResetButton:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.Panel {
+    display: flex;
+}
+
+.Button {
+    display: block;
+    margin: 0 0.5rem;
+    padding: 1rem;
+    font-size: inherit;
+    text-transform: uppercase;
+    border-radius: 1.5rem;
+    background-color: var(--light-yellow);
+    transition: transform 0.4s, background-color 0.4s;
+}
+
+.Button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.ActiveButton {
+    display: block;
+    background-color: var(--light-orange);
+    transform: scale(1.1);
+}

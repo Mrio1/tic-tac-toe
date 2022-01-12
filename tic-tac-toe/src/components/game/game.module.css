@@ -1,0 +1,23 @@
+.Game {
+    padding-top: 0;
+}
+  
+.Main {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column-reverse;
+}
+  
+.PlayField {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 auto;
+}
+  
+@media (min-width: 47em) {
+  .Main {
+    flex-direction: row;
+  }
+}
