@@ -1,4 +1,3 @@
-function calculateWinner(squares) {
   const winCombinations = [
     [0, 1, 2],
     [3, 4, 5],
@@ -9,10 +8,11 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
+
+function calculateWinner(squares) {
   for (let i = 0; i < winCombinations.length; i++) {
     const [a, b, c] = winCombinations[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      
       return squares[a];
     }
   }

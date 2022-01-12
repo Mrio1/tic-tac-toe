@@ -1,9 +1,12 @@
 import React from 'react';
 import classes from './square.module.css';
 
-function Square({ value, onClick}) {
+function Square({value, onClick}) {
   return (
-    <div className={classes.Square} onClick={onClick}>
+    <div
+      className={classes.Square}
+      onClick={onClick}
+    >
       {value}
     </div>
   );

@@ -5,10 +5,14 @@ import classes from  './board.module.css';
 
 function Board({squares, onClick}) {
   const squareComponents = squares.map((square, index) => {
+    function clickHandler() {
+      onClick(index)
+    }
+
     return (
       <Square
         value={squares[index]}
-        onClick={() => {onClick(index)}}
+        onClick={clickHandler}
         key={index}
       />
     )

@@ -1,9 +1,3 @@
-const firsPlayerRatingFactor = 10;
-const secondPlayerRatingFactor = 1;
-const twoItemsCombinationCost = 100;
-const oneItemsCombinationCost = 10;
-const angleOffset = 1;
-
 const winCombinations = [
   [0, 1, 2],
   [3, 4, 5],
@@ -14,17 +8,18 @@ const winCombinations = [
   [0, 4, 8],
   [2, 4, 6],
 ];
-
+const bestFreePositionIndex = 4;
 const combinationsCount = winCombinations.length;
 
-function getWinPosition(arr, secondValue) {
+function getWinPosition(moveValuesArray, secondValue) {
   for (let i = 0; i < combinationsCount; i++) {
-    if (!winCombinations[i].some((el) => arr[el] === secondValue)) {
+    if (!winCombinations[i].some((el) => moveValuesArray[el] === secondValue)) {
       const nextTurns =  winCombinations[i].filter(el => {
   
-        return arr[el] === null;
+        return moveValuesArray[el] === null;
       })
       if (nextTurns.length === 1) {
+        
         return nextTurns[0];
       }
    }
@@ -33,19 +28,19 @@ function getWinPosition(arr, secondValue) {
  return null
 }
 
-function getRandomPosition(arr) {
-  if (!arr[4]) {
-    return 4;
+function getRandomPosition(moveValuesArray) {
+  if (!moveValuesArray[bestFreePositionIndex]) {
+    return bestFreePositionIndex;
   }
 
-  return arr.indexOf(null);
+  return moveValuesArray.indexOf(null);
 }
 
-function checkTurn(arr, botValue, playerValue) {
-  const botWinPosition = getWinPosition(arr, playerValue);
-  const playerWinPosition = getWinPosition(arr, botValue);
+function checkTurn(moveValuesArray, botValue, playerValue) {
+  const botWinPosition = getWinPosition(moveValuesArray, playerValue);
+  const playerWinPosition = getWinPosition(moveValuesArray, botValue);
 
-  return botWinPosition || playerWinPosition || getRandomPosition(arr);
+  return botWinPosition || playerWinPosition || getRandomPosition(moveValuesArray);
 }
 
 export default checkTurn;

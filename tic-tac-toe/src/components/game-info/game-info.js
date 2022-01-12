@@ -17,7 +17,7 @@ const GameInfo = ({moves, onJumpTo}) => {
         </button>
       </li> 
     )
-	})
+  })
 
   return (
     <div>

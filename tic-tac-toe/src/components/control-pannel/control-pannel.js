@@ -1,10 +1,10 @@
 import React from 'react';
 import classes from  './control-pannel.module.css';
-import {gameModes} from '../../libraries/library';
+import {GAME_MODES} from '../../libraries/library';
 
 const buttonsInfo = [
-  {name: gameModes.vsPlayer, label: 'human'},
-  {name: gameModes.vsBot, label: 'robot'},
+  {name: GAME_MODES.vsPlayer, label: 'human'},
+  {name: GAME_MODES.vsBot, label: 'robot'},
 ];
 
 const GameModePannel = ({activeGameMode, onChangeMode}) => {
@@ -46,11 +46,11 @@ function ControlPannel(props) {
   return (
     <div className={classes.Panel}>
       <GameResetButton
-        onReset = {onResetGame}
+        onReset={onResetGame}
       />
       <GameModePannel
-        activeGameMode = {activeGameMode}
-        onChangeMode = {onChangeMode}
+        activeGameMode={activeGameMode}
+        onChangeMode={onChangeMode}
       />
     </div>
   )
